@@ -15,5 +15,10 @@ class DatabaseSeeder extends Seeder
     {
 
         StatesTableSeeder::run();
+        CitiesTableSeeder::run();
+        PeopleTableSeeder::run();
+        ClientsTableSeeder::run();
+        SellersTableSeeder::run();
+        SellerCitiesTableSeeder::run();
     }
 }

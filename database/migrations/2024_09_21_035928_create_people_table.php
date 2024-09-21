@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('birth_date');
             $table->char('sex');
             $table->boolean('is_active')->default(true);
+            $table->string('phone')->default(true);
             $table->timestamps();
         });
     }
