@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
 use App\Http\Requests\ClientUpdateRequest;
-use App\Models\Client;
 use App\Services\ClientSevice;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 class ClientController extends Controller
 {
@@ -25,16 +23,13 @@ class ClientController extends Controller
 
     public function store(ClientRequest $request)
     {
-
         $client = ClientSevice::store($request);
         return response()->json($client, 201);
     }
 
     public function update(ClientUpdateRequest $request, $id)
     {
-
         $client = ClientSevice::update($request,$id);
-
         return response()->json($client,200);
     }
 
