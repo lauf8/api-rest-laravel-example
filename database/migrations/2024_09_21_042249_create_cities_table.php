@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('state_id');
             $table->string('name');
-            $table->string('cod_ibge');
-            $table->string('ddd',2);
+            $table->string('cod_ibge')->nullable();
+            $table->string('ddd',2)->nullable();
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
             $table->timestamps();
         });

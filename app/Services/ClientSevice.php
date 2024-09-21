@@ -10,12 +10,14 @@ class ClientSevice
 {
     public static function index()
     {
-        return Client::with('person')->get();
+        return Client::with('person')
+            ->paginate(10);
     }
 
     public static function show($id)
     {
-        return Client::with('person')->findOrFail($id);
+        return Client::with('person')
+            ->findOrFail($id);
     }
 
     public static function store($request)
