@@ -8,6 +8,15 @@ use App\Models\Person;
 class ClientSevice
 
 {
+    public static function index()
+    {
+        return Client::with('person')->get();
+    }
+
+    public static function show($id)
+    {
+        return Client::with('person')->findOrFail($id);
+    }
 
     public static function store($request)
     {
@@ -25,4 +34,28 @@ class ClientSevice
             'address' => $request->address,
         ]);
     }
+
+    public static function delete($id)
+    {
+        $client = Client::findOrFail($id);
+        $client->delete();
+    }
+
+    public static function update($request, $id)
+    {
+        $client = Client::findOrFail($id);
+        $client->city_id = $request->city_id;
+        $client->address = $request->address;
+        $client->save();
+
+        $person = Person::findOrFail($client->person->id);
+        $person->name = $request->name;
+        $person->cpf = $request->cpf;
+        $person->birth_date = $request->birth_date;
+        $person->phone = $request->phone;
+        $person->sex = $request->sex;
+        $person->save();
+        return $client;
+    }
+
 }

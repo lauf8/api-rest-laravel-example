@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ClientRequest extends FormRequest
+class ClientUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'cpf' => 'required|string|unique:people,cpf',
+            'cpf' => 'required|string',
             'birth_date' => 'required|date',
             'phone' => 'required|string|max:20',
             'sex' => 'required|string|size:1',

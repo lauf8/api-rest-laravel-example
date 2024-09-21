@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
+use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Client;
 use App\Services\ClientSevice;
 use Illuminate\Http\Request;
@@ -12,13 +13,13 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $clients = Client::with('person')->get();
+        $clients = ClientSevice::index();
         return response()->json($clients);
     }
 
     public function show($id)
     {
-        $client = Client::with('person')->findOrFail($id);
+        $client = ClientSevice::show($id);
         return response()->json($client);
     }
 
@@ -29,28 +30,17 @@ class ClientController extends Controller
         return response()->json($client, 201);
     }
 
-    public function update(ClientRequest $request, $id)
+    public function update(ClientUpdateRequest $request, $id)
     {
-        $client = Client::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'person_id' => 'sometimes|required|exists:people,id',
-            'city_id' => 'sometimes|required|exists:cities,id',
-            'address' => 'sometimes|required|string|max:255',
-        ]);
+        $client = ClientSevice::update($request,$id);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        $client->update($request->all());
-        return response()->json($client);
+        return response()->json($client,200);
     }
 
     public function destroy($id)
     {
-        $client = Client::findOrFail($id);
-        $client->delete();
+        ClientSevice::delete($id);
         return response()->json(null, 204);
     }
 }
