@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Seller extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'person_id',
+        'nickname',
+    ];
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+
+    public function cities()
+    {
+        return $this->belongsToMany(City::class, 'seller_cities');
+    }
 }
